@@ -15,7 +15,9 @@ on:
           - testng.xml
 
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
 jobs:
   run-tests:
@@ -80,15 +82,7 @@ jobs:
         run: |
           mkdir -p public
           cp target/ExtentReport.html public/index.html
-
-      - name: Deploy report to GitHub Pages
-        if: always()
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
-          publish_branch: gh-pages
-
+    
       - name: Fail workflow if tests failed
         if: steps.run_tests.outcome == 'failure'
         run: exit 1
