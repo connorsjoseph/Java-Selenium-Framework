@@ -1,6 +1,12 @@
-# SauceDemo Selenium Framework
+# Java Selenium Framework
 
-Selenium 4 + TestNG automation framework for saucedemo.com. POM design, data-driven from Excel, cross-browser (Chrome/Firefox/Edge), Docker Grid support, ExtentReports, auto-retry on failure.
+![Java](https://img.shields.io/badge/Java-17-orange)
+![Selenium](https://img.shields.io/badge/Selenium-4.35-green)
+![TestNG](https://img.shields.io/badge/TestNG-7.11-red)
+![Maven](https://img.shields.io/badge/Maven-3.9-blue)
+![Build](https://github.com/connorsjoseph/Java-Selenium-Framework/actions/workflows/run-tests.yml/badge.svg)
+
+Selenium 4 + TestNG automation framework...
 
 ## Run tests directly in GitHub (no local setup needed)
 
