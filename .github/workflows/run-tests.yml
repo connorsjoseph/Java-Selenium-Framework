@@ -24,9 +24,18 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
 
+    # Added environment to display the deployed page URL in the workflow summary
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      # Configures Pages for the runner environment
+      - name: Set up GitHub Pages
+        uses: actions/configure-pages@v5
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
@@ -82,7 +91,21 @@ jobs:
         run: |
           mkdir -p public
           cp target/ExtentReport.html public/index.html
-    
+          touch public/.nojekyll
+
+      # Packaged the public directory as a Pages artifact
+      - name: Upload Pages artifact
+        if: always()
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./public
+
+      # Direct, modern action-based deployment to Pages
+      - name: Deploy to GitHub Pages
+        if: always()
+        id: deployment
+        uses: actions/deploy-pages@v4
+
       - name: Fail workflow if tests failed
         if: steps.run_tests.outcome == 'failure'
         run: exit 1
